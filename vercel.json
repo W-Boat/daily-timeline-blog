@@ -1,28 +1,10 @@
 {
   "version": 2,
   "name": "daily-timeline-blog",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "public"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
-  ],
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "installCommand": "npm install",
-  "devCommand": "npm run server",
   "framework": null,
-  "functions": {},
-  "regions": ["all"],
   "env": {
     "NODE_VERSION": "18"
   }
