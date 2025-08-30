@@ -1,0 +1,50 @@
+<div class="archive-container">
+    <header class="archive-header">
+        <h1 class="archive-title">Archive</h1>
+        <p class="archive-subtitle">All moments captured in time</p>
+    </header>
+    
+    <div class="archive-content">
+        <% if (page.posts && page.posts.length > 0) { %>
+            <% var year = null; %>
+            <% page.posts.each(function(post) { %>
+                <% var postYear = post.date.year(); %>
+                <% if (year !== postYear) { %>
+                    <% if (year !== null) { %></div><% } %>
+                    <% year = postYear; %>
+                    <div class="archive-year">
+                        <h2 class="year-title"><%= year %></h2>
+                        <div class="year-posts">
+                <% } %>
+                
+                <article class="archive-item">
+                    <time class="archive-date" datetime="<%= post.date.format() %>">
+                        <%= post.date.format('MM-DD') %>
+                    </time>
+                    <h3 class="archive-post-title">
+                        <a href="<%= url_for(post.path) %>" class="archive-post-link">
+                            <%= post.title %>
+                        </a>
+                    </h3>
+                </article>
+            <% }) %>
+            <% if (year !== null) { %></div></div><% } %>
+        <% } else { %>
+            <div class="empty-archive">
+                <p>No posts yet. Start writing your daily journal!</p>
+            </div>
+        <% } %>
+    </div>
+    
+    <!-- Pagination -->
+    <% if (page.total > 1) { %>
+        <nav class="pagination-nav">
+            <%- paginator({
+                prev_text: '← Previous',
+                next_text: 'Next →',
+                mid_size: 1,
+                end_size: 1
+            }) %>
+        </nav>
+    <% } %>
+</div>

@@ -1,0 +1,72 @@
+<div class="timeline-container">
+    <div class="timeline-line"></div>
+    
+    <% if (page.posts && page.posts.length > 0) { %>
+        <% page.posts.each(function(post, index) { %>
+            <article class="timeline-item" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-card">
+                        <header class="timeline-header">
+                            <time class="timeline-date" datetime="<%= post.date.format() %>">
+                                <span class="date-day"><%= post.date.format('DD') %></span>
+                                <span class="date-month"><%= post.date.format('MMM') %></span>
+                                <span class="date-year"><%= post.date.format('YYYY') %></span>
+                            </time>
+                            
+                            <h2 class="timeline-title">
+                                <a href="<%= url_for(post.path) %>" class="timeline-title-link">
+                                    <%= post.title %>
+                                </a>
+                            </h2>
+                        </header>
+                        
+                        <div class="timeline-excerpt">
+                            <% if (post.excerpt) { %>
+                                <%- strip_html(post.excerpt) %>
+                            <% } else if (post.content) { %>
+                                <%- truncate(strip_html(post.content), {length: 150}) %>
+                            <% } %>
+                        </div>
+                        
+                        <footer class="timeline-meta">
+                            <a href="<%= url_for(post.path) %>" class="read-more">
+                                Read more
+                                <svg class="read-more-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1L15 8L8 15M15 8H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            
+                            <% if (post.tags && post.tags.length) { %>
+                                <div class="timeline-tags">
+                                    <% post.tags.each(function(tag) { %>
+                                        <span class="tag">#<%= tag.name %></span>
+                                    <% }) %>
+                                </div>
+                            <% } %>
+                        </footer>
+                    </div>
+                </div>
+            </article>
+        <% }) %>
+    <% } else { %>
+        <div class="empty-timeline">
+            <p>No moments captured yet. Start writing your daily journal!</p>
+        </div>
+    <% } %>
+    
+    <!-- Pagination -->
+    <% if (page.total > 1) { %>
+        <nav class="pagination-nav">
+            <%- paginator({
+                prev_text: '← Previous',
+                next_text: 'Next →',
+                mid_size: 1,
+                end_size: 1
+            }) %>
+        </nav>
+    <% } %>
+</div>

@@ -1,0 +1,51 @@
+<article class="post-article">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="post-date" datetime="<%= page.date.format() %>">
+                <%= page.date.format('MMMM DD, YYYY') %>
+            </time>
+        </div>
+        
+        <h1 class="post-title"><%= page.title %></h1>
+        
+        <% if (page.tags && page.tags.length) { %>
+            <div class="post-tags">
+                <% page.tags.each(function(tag) { %>
+                    <a href="<%= url_for(tag.path) %>" class="post-tag">#<%= tag.name %></a>
+                <% }) %>
+            </div>
+        <% } %>
+    </header>
+    
+    <div class="post-content">
+        <%- page.content %>
+    </div>
+    
+    <footer class="post-footer">
+        <nav class="post-nav">
+            <% if (page.prev) { %>
+                <div class="post-nav-item post-nav-prev">
+                    <a href="<%= url_for(page.prev.path) %>" class="post-nav-link">
+                        <span class="post-nav-label">← Previous</span>
+                        <span class="post-nav-title"><%= page.prev.title %></span>
+                    </a>
+                </div>
+            <% } %>
+            
+            <% if (page.next) { %>
+                <div class="post-nav-item post-nav-next">
+                    <a href="<%= url_for(page.next.path) %>" class="post-nav-link">
+                        <span class="post-nav-label">Next →</span>
+                        <span class="post-nav-title"><%= page.next.title %></span>
+                    </a>
+                </div>
+            <% } %>
+        </nav>
+        
+        <div class="back-to-timeline">
+            <a href="<%= url_for() %>" class="back-link">
+                ← Back to Timeline
+            </a>
+        </div>
+    </footer>
+</article>

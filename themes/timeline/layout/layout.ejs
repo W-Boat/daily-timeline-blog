@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>
+        <% if (page.title) { %>
+            <%= page.title %> | <%= config.title %>
+        <% } else { %>
+            <%= config.title %>
+            <% if (config.subtitle) { %> - <%= config.subtitle %><% } %>
+        <% } %>
+    </title>
+    
+    <meta name="description" content="<%= config.description || page.description || '' %>">
+    <meta name="keywords" content="<%= config.keywords || page.keywords || '' %>">
+    <meta name="author" content="<%= config.author %>">
+    
+    <!-- Stylesheets -->
+    <%- css('css/style') %>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <%- partial('_partial/header') %>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <%- body %>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <%- partial('_partial/footer') %>
+    </div>
+    
+    <!-- Scripts -->
+    <%- js('js/main') %>
+</body>
+</html>
